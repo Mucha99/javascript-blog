@@ -50,7 +50,7 @@ const titleClickHandler = function (event) {
     const articles = document.querySelectorAll(optArticleSelector);
     let html = "";
 
-    /* [IN PROGRESS] for each article */
+    /* [DONE] for each article */
     for (let article of articles) {
       /* [DONE] get the article id */
       const articleId = article.getAttribute("id");
@@ -58,7 +58,7 @@ const titleClickHandler = function (event) {
       /* [DONE] find the title element */
       const articleTitle = article.querySelector(optTitleSelector).innerHTML;
 
-      /* [IN PROGRESS] create HTML of the link */
+      /* [DONE] create HTML of the link */
       const linkHTML =
         '<li><a href="#"' +
         articleId +
@@ -66,7 +66,7 @@ const titleClickHandler = function (event) {
         articleTitle +
         "</span></a></li>";
       console.log(linkHTML);
-      /* insert link into titleList */
+      /* [DONE] insert link into titleList */
       html = html + linkHTML;
       console.log(html);
     }
