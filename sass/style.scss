@@ -86,6 +86,29 @@ body {
   }
 }
 
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+ 
+  .tag-size-1 {
+    color: rebeccapurple;
+    font-size: 15px;
+    margin: 5px;
+   ;
+  }
+  .tag-size-3 {
+    color: turquoise;
+    font-size: 22px;
+    margin: 5px;
+  }
+  .tag-size-6 {
+    color: pink;
+    font-size: 30px;
+    margin: 5px;
+  }
+}
+
 .list-horizontal {
   li {
     display: inline-block;
