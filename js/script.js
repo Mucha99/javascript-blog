@@ -239,7 +239,31 @@
 
   addClickListenersToTags();
 
+  function calculateAuthorsParams(authors) {
+    const params = { max: 0, min: 9999 };
+
+    for (let author in authors) {
+      if (authors[author] > params.max) {
+        params.max = authors[author];
+      } else if (authors[author] < params.min) {
+        params.min = authors[author];
+      }
+    }
+    return params;
+  }
+
+  function calculateAuthorClass(count, params) {
+    const classNumber = Math.floor(
+      ((count - params.min) / (params.max - params.min)) * optCloudClassCount +
+        1
+    );
+
+    return optCloudClassPrefix + classNumber;
+  }
+
   function generateAuthors() {
+    let allAuthors = {};
+
     const articles = document.querySelectorAll(optArticleSelector);
 
     for (let article of articles) {
@@ -248,11 +272,34 @@
 
       const articleAuthors = article.getAttribute("data-author");
 
-      const linkHTML =
-        '<a href="#author-' + articleAuthors + '">' + articleAuthors + "</a>";
+      const linkHTMLData = {
+        id: "author-" + articleAuthors,
+        title: articleAuthors,
+      };
+      const linkHTML = templates.articleLink(linkHTMLData);
       html = html + linkHTML;
       authorsWrapper.innerHTML = html;
+
+      if (!allAuthors.hasOwnProperty(articleAuthors)) {
+        allAuthors[articleAuthors] = 1;
+      } else {
+        allAuthors[articleAuthors]++;
+      }
     }
+    const authorList = document.querySelector(".authors");
+
+    const authorsParams = calculateAuthorsParams(allAuthors);
+
+    const allAuthorsData = { authors: [] };
+
+    for (let author in allAuthors) {
+      allAuthorsData.authors.push({
+        author: author,
+        count: allAuthors[author],
+        className: calculateTagClass(allAuthors[author], authorsParams),
+      });
+    }
+    authorList.innerHTML = templates.authorCloudLink(allAuthorsData);
   }
 
   generateAuthors();
